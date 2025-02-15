@@ -24,6 +24,7 @@ public class Scripture
         Console.WriteLine("");
         Console.WriteLine("");
         Console.WriteLine("Press Enter to Erase 3 Words");
+        Console.WriteLine("Press H for a Hint");
         Console.WriteLine("Or press Escape to Quit Program");
         Console.WriteLine("");
         string action = WaitForKey();
@@ -33,8 +34,17 @@ public class Scripture
             verse.ChooseRandomWord();
             verse.ChooseRandomWord();
             verse.ChooseRandomWord();
-
-        } 
+        } else if (action == "pressed_hint") {
+            // reveals the last three words
+            if (verse.GetWords().All(word => !word.GetText().Contains("_"))) {
+                Console.WriteLine("");
+                Console.WriteLine("All the words are already revealed! Press Enter or Escape Instead");
+            } else {
+            verse.RevealLastHiddenWord();
+            verse.RevealLastHiddenWord();
+            verse.RevealLastHiddenWord();
+            }
+        }
         else if (action == "pressed_escape") {
             Environment.Exit(0);
         }
@@ -51,9 +61,12 @@ public class Scripture
         else if (key == ConsoleKey.Escape) {
             Console.WriteLine("You Pressed Escape! Now Quitting...");
             return "pressed_escape";
-        } 
+        } else if (key == ConsoleKey.H) {
+            Console.WriteLine("You Pressed H for Hint! Revealing the last three words...");
+            return "pressed_hint";
+        }
         else {
-            Console.WriteLine("Please Press Escape or Enter");
+            Console.WriteLine("Please Press Enter, Escape, or H (for hint)");
             Console.WriteLine("Try Again");
         }
     }

@@ -9,6 +9,7 @@ public class Verse
     // attributes
     private List<Word> words;
     private Random random;
+    private Stack<int> hiddenWordIndexes = new Stack<int>(); // Track order of hidden words
     
     
     // adds words to the scripture
@@ -33,7 +34,6 @@ public class Verse
             return words;
         }
 
-
     //chooses a random word and hides it
     public void ChooseRandomWord() {
         if (words.All(word => word.IsHide())) return; // Stop if all words are hidden
@@ -45,6 +45,15 @@ public class Verse
         } while (words[index].IsHide()); // Repeat if the word is already hidden
 
         words[index].Erase(); // Hide the selected word
+        hiddenWordIndexes.Push(index); // Store the hidden word's index so the user can get hints
+    }
+
+    // Reveals the most recently hidden word
+    public void RevealLastHiddenWord() {
+        if (hiddenWordIndexes.Count > 0) {
+            int index = hiddenWordIndexes.Pop(); // Get the last hidden word index
+            words[index].Reveal();
+        }
     }
 
     //method to check if all words are hidden

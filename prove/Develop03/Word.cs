@@ -30,6 +30,17 @@ public class Word
             return _text; }
     }
 
+    //method to reveal word
+    public string Reveal() {
+        _isHidden = false;
+        if (!_isHidden) {
+            return _text;
+        }
+        else
+        {
+            return new string('_', _text.Length); }
+    }
+
     // so my other classes can sense this
     public bool IsHide() {
         return _isHidden;
