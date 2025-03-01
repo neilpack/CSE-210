@@ -13,9 +13,7 @@ class Breathing : Activity
         Console.Clear();
 
         //Run animation and give user some time before activity
-        Console.WriteLine("Get Ready...");
-        Console.WriteLine("");
-        displayAnimation();
+        displayLoadingAnimation();
         Console.Clear();
 
         // Run the countdown timer in a separate thread

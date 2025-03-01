@@ -22,10 +22,11 @@ class Activity {
             "Loading Activity: [█████████ ]",
             "Loading Activity: [██████████]",
         };
-    
-
-
-
+    protected string[] thinkingAnimation = {
+        "/",
+        "|",
+        "--",
+    };
 
     //METHODS
     protected void StartCountdown(int seconds) { //Timer counts down
@@ -37,10 +38,34 @@ class Activity {
         Console.WriteLine($"{Timer} Second {activityName} Session complete!");
         Thread.Sleep(3000);
     }
-    protected void displayAnimation() { //displays loading animation before activities
+    protected void displayLoadingAnimation() { //displays loading animation before activities
+        Console.WriteLine("Get Ready...");
+        Console.WriteLine(Environment.NewLine);
         foreach (string frame in loadingAnimation) {
             Console.Write($"\r{frame}");
             Thread.Sleep(500);
+        }
+    }
+    protected void displayThinkingAnimation() {
+        Console.Write("\r ");
+        if (!sessionComplete) {
+            foreach (string frame in thinkingAnimation) {
+                Console.Write($"\r{frame}   ");
+                Thread.Sleep(500);
+            }
+        }
+        if (!sessionComplete) {
+            foreach (string frame in thinkingAnimation) {
+                Console.Write($"\r{frame}   ");
+                Thread.Sleep(500);
+            }
+        }
+        if (!sessionComplete) {
+            foreach (string frame in thinkingAnimation) {
+                Console.Write($"\r{frame}   ");
+                Thread.Sleep(500);
+            }
+        Console.Write("\r ");
         }
     }
     protected int getUserInput() { // get the user input for how long activity
