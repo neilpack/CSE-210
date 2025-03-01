@@ -2,70 +2,50 @@ using System;
 
 class Program
 {
-    static void Main()
-    {
-        Menu menu = new Menu();
-        PromptGen promptGen = new PromptGen();
-        Journal journal = new Journal();
+    static void Main() {
+        Reflection reflection = new Reflection();
+        Listing listing = new Listing();
+        Breathing breathing = new Breathing();
 
-        Console.WriteLine("Welcome to Your Journal!");
+        Console.WriteLine("Welcome to Neil's Mindfulness Program!");
+        Console.Write(Environment.NewLine);
 
         bool done = false;
-        while (!done)
-        {
-            menu.Display();
-            int choice = menu.GetUserChoice();
+        while (!done) {
+            Console.WriteLine("\rMenu Options: ");
+            Console.WriteLine("\r   1. Start Breathing Activity");
+            Console.WriteLine("\r   2. Start Reflecting Activity");
+            Console.WriteLine("\r   3. Start Listing Activity");
+            Console.WriteLine("\r   4. Quit");
+            Console.WriteLine("\rSelect a choice from the menu: ");
+            
+            string UserChoice = Console.ReadLine();
 
-            switch (choice)
-            {
-                case 1:
-                    // Get a random prompt
-                    string prompt = promptGen.GeneratePrompt();
-                    // Get the user's response
-                    Console.Write("Your response: ");
-                    string response = Console.ReadLine();
-                    // Create a new entry
-                    Entry entry = new Entry(prompt, response, DateTime.Now);
-                    // Add the entry to the journal
-                    journal.AddEntry(entry);
-                    break;
-
-                case 2:
-                    Console.WriteLine("Reading the journal");
-                    journal.DisplayJournal();  // Display all entries in the journal
-                    break;
-
-                case 3:
-                    Console.WriteLine("Displaying menu again");
-                    break;
-
-                case 4:
-                    promptGen.ReadPrompt();
-                    break;
-
-                case 5:
-                    Console.WriteLine("Saving journal as a .txt file");
-                    Console.Write("Enter the filename (with extension, example: myjournal.txt): ");
-                    string saveFilename = Console.ReadLine();
-                    journal.SaveToFile(saveFilename);
-                    break;
-
-                case 6:
-                    Console.WriteLine("Loading from file");
-                    Console.Write("Enter the filename (with extension, example: myjournal.txt): ");
-                    string loadFilename = Console.ReadLine();
-                    journal.LoadFromFile(loadFilename);
-                    break;
-
-                case 7:
-                    Console.WriteLine("Exiting");
-                    done = true;
-                    break;
-
-                default:
-                    Console.WriteLine("Invalid choice, try again.");
-                    break;
+            if (UserChoice == "1") {
+                breathing.RunActivity();
+            } else if (UserChoice == "2") {
+                reflection.RunActivity();
+            } else if (UserChoice == "3") {
+                listing.RunActivity();
+            } else if (UserChoice == "4") {
+                done = true;
+                Console.WriteLine("\rQuitting...");
+                Environment.Exit(0);
+            } else {
+                Console.WriteLine("\rPlease input a number from the menu!");
             }
         }
     }
 }
+
+
+// program
+// activity - contains the timer and animation
+//breathing, reflection, and list - has the methods and attributes of each game
+
+// this class will just run the entire program until it quits
+
+//NOTES FOR INHERITANCE
+//The parents know nothing about the kids, the way you have been thinking of it has been backwards
+//essentially things you don't want to duplicate goes in activity and the program just calls on the three seperate activities,
+//a timer and animation to duplicate it in each activity would be annoying so you put those in the activity.cs
