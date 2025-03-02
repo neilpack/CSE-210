@@ -26,6 +26,9 @@ class Activity {
         "/",
         "|",
         "--",
+        "/",
+        "|",
+        "--"
     };
 
     //METHODS
@@ -36,6 +39,9 @@ class Activity {
         sessionComplete = true;
         Console.Clear();
         Console.WriteLine($"{Timer} Second {activityName} Session complete!");
+        if (activityName == "Listing") { //weird glitch in the listing activity
+            Console.WriteLine("Press Enter to Continue: ");
+        }
         Thread.Sleep(3000);
     }
     protected void displayLoadingAnimation() { //displays loading animation before activities
@@ -43,7 +49,7 @@ class Activity {
         Console.WriteLine(Environment.NewLine);
         foreach (string frame in loadingAnimation) {
             Console.Write($"\r{frame}");
-            Thread.Sleep(500);
+            Thread.Sleep(250);
         }
     }
     protected void displayThinkingAnimation() {

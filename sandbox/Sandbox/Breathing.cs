@@ -9,6 +9,10 @@ class Breathing : Activity
         activityName = "Breathing";
         Console.Clear();
         Console.WriteLine("\rNow running Breathing Activity!");
+        Console.Write(Environment.NewLine);
+        Console.WriteLine("This activity will help you relax by walking you through breathing in and out slowly.");
+        Console.WriteLine("Clear your mind and focus on your breathing.");
+        Console.Write(Environment.NewLine);
         Timer = getUserInput();
         Console.Clear();
 
