@@ -4,13 +4,13 @@ using System.Runtime.Versioning;
 class Reflection : Activity
 {
 
-    public string[] firstPrompts = {
+    private string[] firstPrompts = {
         "Think of a time when you stood up for someone else.", 
         "Think of a time when you did something really difficult.",
         "Think of a time when you helped someone in need.",
         "Think of a time when you did something truly selfless.",
     };
-    public string[] secondPrompts = {
+    private string[] secondPrompts = {
         "Why was this experience meaningful to you?",
         "Have you ever done anything like this before?",
         "How did you get started?", 
