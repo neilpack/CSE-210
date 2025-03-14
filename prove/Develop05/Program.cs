@@ -9,17 +9,19 @@ class Program {
     Eternal eternal = new Eternal();
 
     // WELCOME MESSAGE
-    if (!File.Exists("goal.txt")) File.Create("goals.txt").Close(); //if goals.txt doesn't exist, then create it
+    if (!File.Exists("goals.txt")) File.Create("goals.txt").Close(); //if goals.txt doesn't exist, then create it
     Console.WriteLine("Welcome to Neil's Goal Tracker Program!");
-    Console.Write(Environment.NewLine);
-
-    // DISPLAY POINTS
-    Console.WriteLine("You have 0 Points");
     Console.Write(Environment.NewLine);
 
     // RUN GOAL TRACKER GAME LOOP
     bool done = false;
     while (!done) {
+
+        // DISPLAY POINTS
+        checklist.displayPoints();
+        Console.Write(Environment.NewLine);
+
+        // MENU
         Console.WriteLine("\rMenu Options: ");
         Console.WriteLine("\r   1. Create New Goal");
         Console.WriteLine("\r   2. List Goals");
@@ -68,7 +70,7 @@ class Program {
             simple.Load();
         // Record Event
         } else if (UserChoice == "5") {
-            Console.WriteLine("placeholder");
+            eternal.recordEvent();
         // Quit
         } else if (UserChoice == "6") {
             done = true;
@@ -81,12 +83,4 @@ class Program {
         }
     }
   }
-
-
-
-
-
-
-
-
 }

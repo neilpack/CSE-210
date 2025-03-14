@@ -6,9 +6,17 @@ using System.Threading;
 
 class Goal {
     // ------ ATTRIBUTES -------
-    protected List<int> points = new List<int>();
-    protected List<string> goals = new List<string>();
-    protected List<string> descriptions = new List<string>();
+    protected static List<int> points = new List<int>();
+    protected static List<string> goals = new List<string>();
+    protected static List<string> descriptions = new List<string>();
+    protected static List<string> goalType = new List<string>();
+
+    protected static List<int> bonuses = new List<int>();
+    protected static List<int> toCompleteBonus = new List<int>();
+    protected static List<bool> goalCompletionStatus = new List<bool>();
+    protected static List<int> checklistGarbage = new List<int>(); //This is a stupid tier up checklist thing that was super annoying to make
+
+    protected static List<int> _totalPoints = new List<int>(); //scoreboard points
 
 
     // ------ METHODS ------
