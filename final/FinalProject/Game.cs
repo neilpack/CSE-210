@@ -25,13 +25,27 @@ public class Game : Util {
         //Set Difficulty for bots
 
 
+        //Start Timer
+        Console.WriteLine("Starting Game in: ");
+        Console.Write("\r3");
+        Thread.Sleep(1500);
+        Console.Write("\r2");
+        Thread.Sleep(1500);
+        Console.Write("\r1");
+        Thread.Sleep(1500);
+        Console.Write("\r0");
+        Thread.Sleep(1500);
+        Console.Clear();
+
         //Launch Game
-        table.PlayGame();
+        table.Play();
+
+        //Display After Game Scores (Did user win or lose?)
 
     }
 
     public void DebugGame() { //Only so I don't have to see cutscenes and can start instantly
-        table.PlayGame();
+        table.Play();
     }
 
 
