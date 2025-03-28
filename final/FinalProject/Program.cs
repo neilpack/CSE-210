@@ -46,8 +46,7 @@ class Program : Util
                     Environment.Exit(0);
                     break;
                 case "debug":
-                    Console.WriteLine("Running Debugger");
-                    game.DebugGame();
+                    game.Debug();
                     break;
                 default:
                     Console.Clear();
