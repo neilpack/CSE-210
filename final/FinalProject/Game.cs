@@ -5,11 +5,10 @@ public class Game : Util {
 
     //Load Objects
     Table table = new Table();
+    BotPlayer bot = new BotPlayer();
 
     //Variables
     private bool gameComplete = false;
-
-
 
     // Methods
     public void Start() {
@@ -20,8 +19,9 @@ public class Game : Util {
         Thread.Sleep(3000);
         Console.Clear();
 
-        //Choose Gamemode
-
+        //Reset Game (if playing a second time)
+        gameComplete = false;
+        table.Clean();
 
         //Set Difficulty for bots
 
@@ -40,7 +40,9 @@ public class Game : Util {
 
         // ----=== Launch Game ===----
         //Display Game Board (Table)
-        Console.WriteLine("Press Enter or a number (0-9): ");
+        DisplayBaseScreen();
+
+        //Run Bot Thread until win scenario
 
         //keep taking inputs from user if game isn't complete
         while (!gameComplete) {
@@ -51,41 +53,46 @@ public class Game : Util {
         }
 
         //game finished (display final board)
+        Line();
+        Console.WriteLine("---====---");
+        Console.WriteLine("Game Completed");
+        Console.WriteLine("---====---");
+        Line();
+        Thread.Sleep(4000);
 
         //Display After Game Scores (Did user win or lose?)
 
+        Console.Clear();
     }
 
     private void ExecuteInput(string input) {
         switch (input)
         {
             case "Enter":
-                Console.WriteLine("You pressed Enter");
+                bool detectWin = table.TakeTurn();
                 //roll dice that aren't in kept list
-                table.TakeTurn();
+                //the bool returns true if the turn came back
+                //as a win
+                if (detectWin) {
+                    gameComplete = true;
+                }
                 break;
             case "1":
-                Console.WriteLine("You pressed 1");
                 table.KeepNumOne();
                 break;
             case "2":
-                Console.WriteLine("You pressed 2");
                 table.KeepNumTwo();
                 break;
             case "3":
-                Console.WriteLine("You pressed 3");
                 table.KeepNumThree();
                 break;
             case "4":
-                Console.WriteLine("You pressed 4");
                 table.KeepNumFour();
                 break;
             case "5":
-                Console.WriteLine("You pressed 5");
                 table.KeepNumFive();
                 break;
             case "6":
-                Console.WriteLine("You pressed 6");
                 table.KeepNumSix();
                 break;
             case "0":
@@ -95,11 +102,20 @@ public class Game : Util {
                 break;
         }
     }
-    public void Debug() { //Only so I don't have to see cutscenes and can start instantly
-        Console.WriteLine("Running Debugger");
+    private void DisplayBaseScreen() {
+        Console.WriteLine("\r=======================================================================================================================");
+        Line();
+        Console.WriteLine("\rPlayer 2: 0/10 ");
+        Console.WriteLine("\rPlayer 3: 0/10 ");
+        Console.WriteLine("\rPlayer 4: 0/10 ");
+        Line();
+
+        //this is where the dice would go
+        Line();
+        Console.WriteLine(Environment.NewLine);
+        Line();
+
+        Console.WriteLine("\r=======================================================================================================================");
+
     }
-
-
-
-
 }

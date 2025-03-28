@@ -22,8 +22,8 @@ class Program : Util
         while (!done) {
             Console.WriteLine("\r-=== Menu ===-");
             Console.WriteLine("\r   1. Start New Game");
-            Console.WriteLine("\r   2. Check Statistics");
-            Console.WriteLine("\r   3. Tutorial");
+            Console.WriteLine("\r   2. Tutorial");
+            Console.WriteLine("\r   3. Check Statistics");
             Console.WriteLine("\r   4. Quit");
             string choice = Console.ReadLine();
             switch (choice)
@@ -34,19 +34,16 @@ class Program : Util
                     break;
                 case "2":
                     Console.Clear();
-                    Console.WriteLine("Scoreboard");
+                    Console.WriteLine("Tutorial");
                     break;
                 case "3":
                     Console.Clear();
-                    Console.WriteLine("Tutorial");
+                    Console.WriteLine("Scoreboard");
                     break;
                 case "4":
                     Console.Clear();
                     Console.WriteLine("Quitting...");
                     Environment.Exit(0);
-                    break;
-                case "debug":
-                    game.Debug();
                     break;
                 default:
                     Console.Clear();

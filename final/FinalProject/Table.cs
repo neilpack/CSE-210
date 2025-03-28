@@ -10,18 +10,23 @@ public class Table : Util {
     private List<int> diceOnTable = new List<int> {};
     private List<int> keptDice = new List<int> {};
 
-
     //Methods
-    public void TakeTurn() {
+    public bool TakeTurn() {
         Console.Clear();
         diceOnTable.Clear();
+
         dice.Roll();
         StoreRoll();
         DisplayRoll();
+
+        if (DetectWin()) {
+            return true;
+        } else {
+            return false;
+        }
     }
     private void StoreRoll() {
         if (keptDice.Count > 0) {
-            int keptNum = keptDice[0];
             int loopLimit = dice.userRoll.Count - keptDice.Count;
 
             foreach (int number in keptDice) {
@@ -31,13 +36,23 @@ public class Table : Util {
                 int number = dice.userRoll[i];
                 diceOnTable.Add(number);
             }
-            dice.userRoll.Clear();
         } else {
-            diceOnTable.AddRange(dice.userRoll); // Move all numbers from userRoll to diceOnTable
-            dice.userRoll.Clear();
+            diceOnTable.AddRange(dice.userRoll);
         }
+        dice.userRoll.Clear();
     }
     private void DisplayRoll() {
+
+        Console.WriteLine("\r=======================================================================================================================");
+        
+        Line();
+
+        Console.WriteLine("\rPlayer 2: 0/10 ");
+        Console.WriteLine("\rPlayer 3: 0/10 ");
+        Console.WriteLine("\rPlayer 4: 0/10 ");
+
+        Line();
+
         string Roof = " _______ ";
         int Dice1 = diceOnTable[0];
         int Dice2 = diceOnTable[1];
@@ -49,15 +64,37 @@ public class Table : Util {
         int Dice8 = diceOnTable[7];
         int Dice9 = diceOnTable[8];
         int Dice10 = diceOnTable[9];
-
         //print roof layer
-        Console.WriteLine($"{Roof} {Roof} {Roof} {Roof} {Roof} {Roof} {Roof} {Roof} {Roof} {Roof}");
+        Console.WriteLine($"\r{Roof}   {Roof}   {Roof}   {Roof}   {Roof}   {Roof}   {Roof}   {Roof}   {Roof}   {Roof}");
         // Print top layer
-        Console.WriteLine($"{dice.GetTopFrame(Dice1 - 1)} {dice.GetTopFrame(Dice2 - 1)} {dice.GetTopFrame(Dice3 - 1)} {dice.GetTopFrame(Dice4 - 1)} {dice.GetTopFrame(Dice5 - 1)} {dice.GetTopFrame(Dice6 - 1)} {dice.GetTopFrame(Dice7 - 1)} {dice.GetTopFrame(Dice8 - 1)} {dice.GetTopFrame(Dice9 - 1)} {dice.GetTopFrame(Dice10 - 1)}");
+        Console.WriteLine($"\r{dice.GetTopFrame(Dice1 - 1)}   {dice.GetTopFrame(Dice2 - 1)}   {dice.GetTopFrame(Dice3 - 1)}   {dice.GetTopFrame(Dice4 - 1)}   {dice.GetTopFrame(Dice5 - 1)}   {dice.GetTopFrame(Dice6 - 1)}   {dice.GetTopFrame(Dice7 - 1)}   {dice.GetTopFrame(Dice8 - 1)}   {dice.GetTopFrame(Dice9 - 1)}   {dice.GetTopFrame(Dice10 - 1)}");
         // Print middle layer
-        Console.WriteLine($"{dice.GetMiddleFrame(Dice1 - 1)} {dice.GetMiddleFrame(Dice2 - 1)} {dice.GetMiddleFrame(Dice3 - 1)} {dice.GetMiddleFrame(Dice4 - 1)} {dice.GetMiddleFrame(Dice5 - 1)} {dice.GetMiddleFrame(Dice6 - 1)} {dice.GetMiddleFrame(Dice7 - 1)} {dice.GetMiddleFrame(Dice8 - 1)} {dice.GetMiddleFrame(Dice9 - 1)} {dice.GetMiddleFrame(Dice10 - 1)}");
+        Console.WriteLine($"\r{dice.GetMiddleFrame(Dice1 - 1)}   {dice.GetMiddleFrame(Dice2 - 1)}   {dice.GetMiddleFrame(Dice3 - 1)}   {dice.GetMiddleFrame(Dice4 - 1)}   {dice.GetMiddleFrame(Dice5 - 1)}   {dice.GetMiddleFrame(Dice6 - 1)}   {dice.GetMiddleFrame(Dice7 - 1)}   {dice.GetMiddleFrame(Dice8 - 1)}   {dice.GetMiddleFrame(Dice9 - 1)}   {dice.GetMiddleFrame(Dice10 - 1)}");
         // Print bottom layer
-        Console.WriteLine($"{dice.GetBottomFrame(Dice1 - 1)} {dice.GetBottomFrame(Dice2 - 1)} {dice.GetBottomFrame(Dice3 - 1)} {dice.GetBottomFrame(Dice4 - 1)} {dice.GetBottomFrame(Dice5 - 1)} {dice.GetBottomFrame(Dice6 - 1)} {dice.GetBottomFrame(Dice7 - 1)} {dice.GetBottomFrame(Dice8 - 1)} {dice.GetBottomFrame(Dice9 - 1)} {dice.GetBottomFrame(Dice10 - 1)}");
+        Console.WriteLine($"\r{dice.GetBottomFrame(Dice1 - 1)}   {dice.GetBottomFrame(Dice2 - 1)}   {dice.GetBottomFrame(Dice3 - 1)}   {dice.GetBottomFrame(Dice4 - 1)}   {dice.GetBottomFrame(Dice5 - 1)}   {dice.GetBottomFrame(Dice6 - 1)}   {dice.GetBottomFrame(Dice7 - 1)}   {dice.GetBottomFrame(Dice8 - 1)}   {dice.GetBottomFrame(Dice9 - 1)}   {dice.GetBottomFrame(Dice10 - 1)}");
+
+        Line();
+
+        Console.WriteLine("\r=======================================================================================================================");
+
+        Line();
+    }
+    public void Clean() { //when playing a second time it's good to reset the dice
+        diceOnTable.Clear();
+        keptDice.Clear();
+    }
+    private bool DetectWin() {
+        if (diceOnTable.Count == 0) //if list empty then false
+            return false;
+
+        int referenceNum = diceOnTable[0];
+        foreach (int num in diceOnTable) {
+            if (num != referenceNum) { // if any number is different, return false
+                return false;
+            }
+        }
+
+        return true;
     }
 
     //keep specific dice methods
@@ -110,7 +147,7 @@ public class Table : Util {
         }
     }
 
-    //unused methods
+    //debugger + helper methods
     public void Debug() {
         Line();
         Console.WriteLine("Dice on Table");
@@ -128,5 +165,3 @@ public class Table : Util {
         Console.WriteLine(result);
     }
 }
-
-//I think what I might have to do is work on the display last, so the dice won't look cool but look more like [1] [6] [5]
