@@ -97,10 +97,9 @@ private List<string> diceFramesBottom = new List<string>
     }
 
     //Methods
-    public string SimpleRoll() {
+    public int SimpleRoll() {
         int randomNumber = GenerateRandomNumber();
-        string diceFace = diceSides[randomNumber - 1];
-        return diceFace;
+        return randomNumber;
     }
     public void Roll() {
         //generate 10 random numbers

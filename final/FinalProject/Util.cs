@@ -3,6 +3,9 @@ using System;
 public class Util
 {
     //Variables
+    static protected int _botPoints1 = 0;
+    static protected int _botPoints2 = 0;
+    static protected int _botPoints3 = 0;
 
     // Methods
     static protected void Line() { //Helper Method that makes it easier to Create New Lines

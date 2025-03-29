@@ -1,11 +1,11 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 public class Game : Util {
 
     //Load Objects
     Table table = new Table();
-    BotPlayer bot = new BotPlayer();
 
     //Variables
     private bool gameComplete = false;
@@ -42,14 +42,43 @@ public class Game : Util {
         //Display Game Board (Table)
         DisplayBaseScreen();
 
-        //Run Bot Thread until win scenario
+        // Run Bot Threads until win scenario
+        Thread[] botThreads = new Thread[3]; // Track the threads
+        BotPlayer[] bots = new BotPlayer[3]; // Track the bot instances
+        for (int i = 0; i < 3; i++) {
+            bots[i] = new BotPlayer(i + 1); // Create bot with ID 1, 2, 3
+            botThreads[i] = new Thread(bots[i].Start);
+            botThreads[i].IsBackground = true; // Ensures threads close when main thread exits
+            botThreads[i].Start();
+        }
+        
 
         //keep taking inputs from user if game isn't complete
         while (!gameComplete) {
-            string input = DetectButton();
-            if (!string.IsNullOrEmpty(input)) {
-                ExecuteInput(input);
+            bool anyBotHasWon = false;
+            for (int i = 0; i < 3; i++) {
+                if (bots[i].botHasWon) {
+                    anyBotHasWon = true;
+                    break;
+                }
             }
+
+            if (anyBotHasWon) {
+                gameComplete = true;
+            } else {
+                string input = DetectButton();
+                if (!string.IsNullOrEmpty(input)) {
+                    ExecuteInput(input);
+                }
+            }
+        }
+
+        //close all the bots
+        foreach (var bot in bots) {
+            bot.Stop();
+        }
+        foreach (Thread t in botThreads) {
+            t.Join(); // Wait for each bot thread to finish
         }
 
         //game finished (display final board)
@@ -60,7 +89,28 @@ public class Game : Util {
         Line();
         Thread.Sleep(4000);
 
-        //Display After Game Scores (Did user win or lose?)
+        // Display After Game Scores (Did user win or lose?)
+        bool anyBotHasWonFinal = false;
+        for (int i = 0; i < 3; i++) {
+            if (bots[i].botHasWon) {
+                anyBotHasWonFinal = true;
+                break;
+            }
+        }
+        if (!anyBotHasWonFinal) {
+            Console.WriteLine("You Won!");
+            Console.WriteLine("Congratulations!");
+        } else {
+            Console.WriteLine("You Lost... :(");
+            if (_botPoints1 == 10) {
+                Console.WriteLine("Bot Player Number Two Won");
+            } else if (_botPoints2 == 10) {
+                Console.WriteLine("Bot Player Number Three Won");
+            } else if (_botPoints3 == 10) {
+                Console.WriteLine("Bot Player Number Four Won");
+            }
+        }
+        Thread.Sleep(2000);
 
         Console.Clear();
     }

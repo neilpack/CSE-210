@@ -47,9 +47,9 @@ public class Table : Util {
         
         Line();
 
-        Console.WriteLine("\rPlayer 2: 0/10 ");
-        Console.WriteLine("\rPlayer 3: 0/10 ");
-        Console.WriteLine("\rPlayer 4: 0/10 ");
+        Console.WriteLine($"\rPlayer 2: {_botPoints1}/10 ");
+        Console.WriteLine($"\rPlayer 3: {_botPoints2}/10 ");
+        Console.WriteLine($"\rPlayer 4: {_botPoints3}/10 ");
 
         Line();
 
@@ -159,9 +159,5 @@ public class Table : Util {
         foreach (int number in keptDice) {
             Console.Write($"{number} ");
         }
-    }
-    private void RollOneDice() {
-        string result = dice.SimpleRoll();
-        Console.WriteLine(result);
     }
 }
