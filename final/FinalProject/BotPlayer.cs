@@ -11,8 +11,9 @@ class BotPlayer : Util {
     public bool botHasWon = false; 
     private volatile bool _running = true; //volatile means all three different threads see the change instead of just one
     private int _botId;
+    protected int difficultyDelay = 3000;
     
-    // constructor to assign bot ID
+    //constructor to assign bot ID
     public BotPlayer(int botId) {
         _botId = botId;
     }
@@ -23,6 +24,9 @@ class BotPlayer : Util {
         botHasWon = false;
         _running = true;
 
+        //sets the bot difficulty
+        UpdateDifficulty();
+
         //reset static util variables
         if (_botId == 1) _botPoints1 = 0;
         else if (_botId == 2) _botPoints2 = 0;
@@ -30,7 +34,7 @@ class BotPlayer : Util {
 
         while (_running && !botHasWon) {
             BotTurn();
-            Thread.Sleep(3000); //this dynamically updates to change difficulty
+            Thread.Sleep(difficultyDelay); //this dynamically updates to change difficulty
         }
     }
     private void BotTurn() {
@@ -54,7 +58,29 @@ class BotPlayer : Util {
     public void Stop() {
         _running = false;
     }
-    public void UpdateDifficulty() {
 
+    //Bot difficulty Polymorphism Methods
+    public virtual void UpdateDifficulty() {
+        difficultyDelay = 3000;
+    }
+}
+class EasyBot : BotPlayer {
+    public EasyBot(int botId) : base(botId) { }
+    public override void UpdateDifficulty() {
+        difficultyDelay = 6000; //easy
+    }
+}
+
+class MediumBot : BotPlayer {
+    public MediumBot(int botId) : base(botId) { }
+    public override void UpdateDifficulty() {
+        difficultyDelay = 3000; // medium difficulty
+    }
+}
+
+class HardBot : BotPlayer {
+    public HardBot(int botId) : base(botId) { }
+    public override void UpdateDifficulty() {
+        difficultyDelay = 1000; // hard
     }
 }

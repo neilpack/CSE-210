@@ -9,6 +9,7 @@ public class Game : Util {
 
     //Variables
     private bool gameComplete = false;
+    private string botLevel = "";
 
     // Methods
     public void Start() {
@@ -24,7 +25,47 @@ public class Game : Util {
         table.Clean();
 
         //Set Difficulty for bots
+        bool done = false;
+        while (!done) {
+            Console.WriteLine("Choose Bot Level Difficulty: ");
+            Console.WriteLine(" 1. Easy");
+            Console.WriteLine(" 2. Medium");
+            Console.WriteLine(" 3. Hard");
 
+            Line();
+
+            botLevel = "";
+            string choice = Console.ReadLine();
+            switch (choice)
+            {
+                case "1":
+                    Console.WriteLine("You Chose Easy");
+                    Thread.Sleep(2000);
+                    Console.Clear();
+                    botLevel = "Easy";
+                    done = true;
+                    break;
+                case "2":
+                    Console.WriteLine("You Chose Medium");
+                    Thread.Sleep(2000);
+                    Console.Clear();
+                    botLevel = "Medium";
+                    done = true;
+                    break;
+                case "3":
+                    Console.WriteLine("You Chose Hard");
+                    Thread.Sleep(2000);
+                    Console.Clear();
+                    botLevel = "Hard";
+                    done = true;
+                    break;
+                default:
+                    Console.WriteLine("Invalid option");
+                    Thread.Sleep(2000);
+                    Console.Clear();
+                    break;
+            }
+        }
 
         //Start Timer
         Console.WriteLine("Starting Game in: ");
@@ -40,18 +81,23 @@ public class Game : Util {
 
         // ----=== Launch Game ===----
         //Display Game Board (Table)
-        DisplayBaseScreen();
+        table.DisplayBaseScreen();
 
         // Run Bot Threads until win scenario
         Thread[] botThreads = new Thread[3]; // Track the threads
         BotPlayer[] bots = new BotPlayer[3]; // Track the bot instances
         for (int i = 0; i < 3; i++) {
-            bots[i] = new BotPlayer(i + 1); // Create bot with ID 1, 2, 3
+            if (botLevel == "Easy") { // Create bot with ID 1, 2, 3
+                bots[i] = new EasyBot(i + 1);
+            } else if (botLevel == "Medium") {
+                bots[i] = new MediumBot(i + 1);
+            } else if (botLevel == "Hard"){
+                bots[i] = new HardBot(i + 1);
+            }
             botThreads[i] = new Thread(bots[i].Start);
             botThreads[i].IsBackground = true; // Ensures threads close when main thread exits
             botThreads[i].Start();
         }
-        
 
         //keep taking inputs from user if game isn't complete
         while (!gameComplete) {
@@ -151,21 +197,5 @@ public class Game : Util {
             default:
                 break;
         }
-    }
-    private void DisplayBaseScreen() {
-        Console.WriteLine("\r=======================================================================================================================");
-        Line();
-        Console.WriteLine("\rPlayer 2: 0/10 ");
-        Console.WriteLine("\rPlayer 3: 0/10 ");
-        Console.WriteLine("\rPlayer 4: 0/10 ");
-        Line();
-
-        //this is where the dice would go
-        Line();
-        Console.WriteLine(Environment.NewLine);
-        Line();
-
-        Console.WriteLine("\r=======================================================================================================================");
-
     }
 }

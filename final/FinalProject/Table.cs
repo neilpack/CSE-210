@@ -96,6 +96,21 @@ public class Table : Util {
 
         return true;
     }
+    public void DisplayBaseScreen() {
+        Console.WriteLine("\r=======================================================================================================================");
+        Line();
+        Console.WriteLine("\rPlayer 2: 0/10 ");
+        Console.WriteLine("\rPlayer 3: 0/10 ");
+        Console.WriteLine("\rPlayer 4: 0/10 ");
+        Line();
+
+        //this is where the dice would go
+        Line();
+        Console.WriteLine(Environment.NewLine);
+        Line();
+
+        Console.WriteLine("\r=======================================================================================================================");
+    }
 
     //keep specific dice methods
      public void KeepNumOne() {

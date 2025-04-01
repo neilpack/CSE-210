@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 
 class Program : Util
 {
@@ -6,6 +7,12 @@ class Program : Util
     {
         //Load Game Object
         Game game = new Game();
+        Tutorial tutorial = new Tutorial();
+        Statistic stat = new Statistic();
+
+        //statistic load
+        stat.CreateFile();
+        stat.Load();
 
         //Welcome Message
         Line();
@@ -34,14 +41,17 @@ class Program : Util
                     break;
                 case "2":
                     Console.Clear();
-                    Console.WriteLine("Tutorial");
+                    tutorial.Run();
+
+
                     break;
                 case "3":
                     Console.Clear();
-                    Console.WriteLine("Scoreboard");
+                    stat.DisplayStatistics();
                     break;
                 case "4":
                     Console.Clear();
+                    stat.Save();
                     Console.WriteLine("Quitting...");
                     Environment.Exit(0);
                     break;
