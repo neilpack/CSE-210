@@ -43,8 +43,8 @@ class Tutorial : Util {
 
         DisplayFirstTutorialTable();
         Line();
-        Console.WriteLine("Since the six was rolled the most out of your roll");
-        Console.WriteLine("You could press 6 on your keyboard ");
+        Console.WriteLine("Since the six was rolled the most out of your");
+        Console.WriteLine("roll you could press 6 on your keyboard ");
         Console.WriteLine("and then press enter to roll again");
         Thread.Sleep(3000);
         Line();
@@ -71,7 +71,6 @@ class Tutorial : Util {
         Continue();
         Console.Clear();
     }
-
     private void Continue() {
         bool done = false;
         while (!done) {

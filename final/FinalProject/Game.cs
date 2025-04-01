@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -10,6 +11,7 @@ public class Game : Util {
     //Variables
     private bool gameComplete = false;
     private string botLevel = "";
+    private bool won = false;
 
     // Methods
     public void Start() {
@@ -23,6 +25,7 @@ public class Game : Util {
         //Reset Game (if playing a second time)
         gameComplete = false;
         table.Clean();
+        won = false;
 
         //Set Difficulty for bots
         bool done = false;
@@ -146,6 +149,7 @@ public class Game : Util {
         if (!anyBotHasWonFinal) {
             Console.WriteLine("You Won!");
             Console.WriteLine("Congratulations!");
+            won = true;
         } else {
             Console.WriteLine("You Lost... :(");
             if (_botPoints1 == 10) {
@@ -160,7 +164,6 @@ public class Game : Util {
 
         Console.Clear();
     }
-
     private void ExecuteInput(string input) {
         switch (input)
         {
@@ -197,5 +200,8 @@ public class Game : Util {
             default:
                 break;
         }
+    }
+    public bool CheckWin() {
+        return won;    
     }
 }

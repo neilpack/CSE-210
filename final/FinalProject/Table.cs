@@ -27,19 +27,19 @@ public class Table : Util {
     }
     private void StoreRoll() {
         if (keptDice.Count > 0) {
-            int loopLimit = dice.userRoll.Count - keptDice.Count;
+            int loopLimit = dice._userRoll.Count - keptDice.Count;
 
             foreach (int number in keptDice) {
                 diceOnTable.Add(number);
             }
             for (int i = 0; i < loopLimit; i++) {
-                int number = dice.userRoll[i];
+                int number = dice._userRoll[i];
                 diceOnTable.Add(number);
             }
         } else {
-            diceOnTable.AddRange(dice.userRoll);
+            diceOnTable.AddRange(dice._userRoll);
         }
-        dice.userRoll.Clear();
+        dice._userRoll.Clear();
     }
     private void DisplayRoll() {
 

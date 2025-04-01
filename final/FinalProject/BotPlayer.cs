@@ -17,7 +17,7 @@ class BotPlayer : Util {
     public BotPlayer(int botId) {
         _botId = botId;
     }
-
+    
     //methods
     public void Start() {
         botDice.Clear();
@@ -65,8 +65,8 @@ class BotPlayer : Util {
     }
 }
 class EasyBot : BotPlayer {
-    public EasyBot(int botId) : base(botId) { }
-    public override void UpdateDifficulty() {
+    public EasyBot(int botId) : base(botId) { } //it is really complex what is going on here but
+    public override void UpdateDifficulty() { // : base(botId) calls the constructor of the parent class (BotPlayer) and passes botId to it
         difficultyDelay = 6000; //easy
     }
 }

@@ -3,7 +3,7 @@ using System;
 public class Dice {
 
 //Variables
-public List<int> userRoll = new List<int> {};
+public List<int> _userRoll = new List<int> {};
 private List<string> diceSides = new List<string>
 // I need them to be as close to the wall
 // as possible to prevent a weird display
@@ -115,16 +115,16 @@ private List<string> diceFramesBottom = new List<string>
         int Dice10 = GenerateRandomNumber();
 
         // append to userRoll list
-        userRoll.Add(Dice1);
-        userRoll.Add(Dice2);
-        userRoll.Add(Dice3);
-        userRoll.Add(Dice4);
-        userRoll.Add(Dice5);
-        userRoll.Add(Dice6);
-        userRoll.Add(Dice7);
-        userRoll.Add(Dice8);
-        userRoll.Add(Dice9);
-        userRoll.Add(Dice10);
+        _userRoll.Add(Dice1);
+        _userRoll.Add(Dice2);
+        _userRoll.Add(Dice3);
+        _userRoll.Add(Dice4);
+        _userRoll.Add(Dice5);
+        _userRoll.Add(Dice6);
+        _userRoll.Add(Dice7);
+        _userRoll.Add(Dice8);
+        _userRoll.Add(Dice9);
+        _userRoll.Add(Dice10);
     }
     private int GenerateRandomNumber() {
         Random rand = new Random();

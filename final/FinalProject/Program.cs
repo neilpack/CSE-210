@@ -5,7 +5,7 @@ class Program : Util
 {
     static void Main(string[] args)
     {
-        //Load Game Object
+        //Load Objects
         Game game = new Game();
         Tutorial tutorial = new Tutorial();
         Statistic stat = new Statistic();
@@ -38,12 +38,15 @@ class Program : Util
                 case "1":
                     Console.Clear();
                     game.Start();
+                    if (game.CheckWin()) {
+                        stat.GetWinPoint();
+                    } else {
+                        stat.GetLossPoint();
+                    }
                     break;
                 case "2":
                     Console.Clear();
                     tutorial.Run();
-
-
                     break;
                 case "3":
                     Console.Clear();
@@ -56,11 +59,10 @@ class Program : Util
                     Environment.Exit(0);
                     break;
                 default:
-                    Console.Clear();
-                    Line();
+                    Console.WriteLine(Environment.NewLine);
                     Console.WriteLine("Invalid option");
-                    Line();
-                    Thread.Sleep(3000);
+                    Console.WriteLine(Environment.NewLine);
+                    Thread.Sleep(2000);
                     Console.Clear();
                     break;
             }
@@ -68,62 +70,49 @@ class Program : Util
     }
 }
 
+// Classes and methods use TitleCase, member variables use _underscoreCamelCase, local variables use camelCase.
+
 //Final Project Plan
-// Program.cs
-// │── GameMode (Abstract)
-// │   │── ClassicTenzi
-// │   │── SpeedTenzi
+// Program.cs : Util
+// │── Game : Util
+// |  |-BotPlayer (Polymorphism with EasyBot, MediumBot, HardBot)
+// |  |
+// │  |-Table : Util
+// |    |-Dice
 // │
-// │── Player
-// │   │── BotPlayer (Overrides RollDice)
+// │── Statistic : Util (Scoreboard)
 // │
-// │── Scoreboard
-// │── UserInterface
-// │── Dice
-
-
-// Class Plan and Hierarchy
-// Base Classes
+// │── Tutorial : Util
+// |  |-Table : Util
+// │
 
 // Game (Manages overall game flow)
 // Controls the game loop
-// Starts and stops the game
+// Starts the game
 // Manages players and bots
 
-// Player (Tracks dice and actions)
+// Table (Tracks dice and actions)
 // Holds a set of Dice
 // Rolls dice manually
 // Checks if all dice match (win condition)
 
-// GameMode (Abstract Class) (Defines rules for different game types)
-// Provides StartGame(), CheckWinCondition(), etc.
-// Enforced polymorphism by requiring subclasses to implement their own rules
-
-// Scoreboard (Tracks scores)
-// Keeps track of wins/losses
-
-// UserInterface (Handles input/output)
-// Displays game info
-// Takes player input
-
-// Derived Classes (Inheritance and Polymorphism)
-// BotPlayer (Inherits from Player)
-// Automates dice rolling using timers
-// Different difficulty levels affect rolling speed
-// Uses polymorphism to override rolling behavior
-
-// ClassicTenzi (Inherits from GameMode)
-// Implements standard Tenzi rules
-
-// SpeedTenzi (Inherits from GameMode)
-// Overrides CheckWinCondition() to add time-based mechanics
-
-// Independent Utility Class
-// Dice (Handles rolling mechanics)
+// Dice
+// Handles rolling mechanics
 // Stores its own value
 // Rolls a random number between 1-6
 
+// Statistic (Tracks scores)
+// Keeps track of wins/losses
 
+// Tutorial
+// Runs tutorial script
+// runs another table to show gameplay
 
+// Util
+// Helper methods
+// Takes player input
 
-// Classes and methods use TitleCase, member variables use _underscoreCamelCase, local variables use camelCase.
+// BotPlayer
+// Automates dice rolling using timers
+// Different difficulty levels affect rolling speed
+// Uses polymorphism to override rolling behavior
